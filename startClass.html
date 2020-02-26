@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Chatterbox</title>
+  <style media="screen">
+    /* *{border:1px solid red;} */
+    body {
+      font-family: OCR A Std, monospace;
+      background-color: #006992;
+      color: #F0C808;
+      font-size: 18px;
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin-left: 1em;
+    }
+
+    #computer {
+      background-color: black;
+      border: 1px solid green;
+      width: 80ch;
+      padding: 1em;
+    }
+
+    #human {
+      background-color: black;
+      border: 1px solid green;
+      width: 80ch;
+      padding: 1em;
+      font-size: inherit;
+      font-family: inherit;
+      color: white;
+    }
+
+    button {
+      width: 10ch;
+      margin: 1em 0 0 2em;
+      font-size: inherit;
+      font-family: inherit;
+      border-radius: 14px;
+    }
+
+    .displayNone {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Chatterbox</h1>
+  <p id="computer">Greetings! how are you feeling today? Good or Bad?</p>
+  <input type="text" placeholder="Type your response" id="human">
+  <button type="button" name="button" id="button">Enter</button>
+
+  <script type="text/javascript">
+    //fun
+    //grab all the elements we need to control
+    let computer = document.querySelector('#computer')
+    let human = document.querySelector('#human')
+    let button = document.querySelector('#button')
+    human.focus()
+
+    //other vars we will need
+    let computerMsg = ""
+    let humanMsg = ""
+
+    let genericResponses = ['Real funny wise guy.', 'Maybe read the question first.', 'ERROR: Humor not found.', 'My ex wife still misses me, but her aim is getting better!']
+    let newResponse
+    let responseNumber
+    let questionTrack = "mood"
+
+    //set up the event listeners
+    button.addEventListener('click', clickHandler, false)
+    window.addEventListener('keydown', keydownHandler, false)
+
+    //set up handler functions
+    function clickHandler() {
+      playGame()
+    }
+
+    function keydownHandler(evt) {
+      if (evt.keyCode === 13) {
+        playGame()
+      }
+    }
+    //time for the game logic
+    function playGame() {
+      humanMsg = (human.value).toLowerCase()
+      //analyze the human input
+      switch (questionTrack) {
+        case "mood":
+          moodAnalysis()
+          break;
+        case "color":
+          colorAnalysis()
+          break;
+        case "dog":
+          dogAnalysis()
+          break;
+        case "food":
+          foodAnalysis()
+          break;
+        case "red":
+          redAnalysis()
+          break;
+        case "blue":
+          blueAnalysis()
+          //
+          break;
+        default:
+          genericResponse()
+          break;
+      }
+
+
+      computer.textContent = computerMsg
+      humanMsg = ""
+      human.value = humanMsg
+    } //end playGame
+
+    function moodAnalysis() {
+      if (humanMsg.indexOf("good") != -1) {
+        computerMsg = "Glad to hear. Which color is your favorite? Red, or Blue?"
+        questionTrack = "color"
+      } else if (humanMsg.indexOf('bad') != -1) {
+        computerMsg = "Sounds ruff. Do you like dogs?"
+        questionTrack = "dog"
+      } else {
+        genericResponse()
+      }
+    } //end moodAnalysis
+
+    function colorAnalysis() {
+      if (humanMsg.indexOf("red") != -1) {
+        computerMsg = "Red can either mean 'Passion' or 'Rage', which best describes you?"
+        questionTrack = "red"
+      } else if (humanMsg.indexOf('blue') != -1) {
+        computerMsg = "Blue can either mean 'Sad' or 'Relaxed', which best describes you?"
+        questionTrack = "blue"
+      } else {
+        genericResponse()
+      }
+    } //end colorAnalysis
+
+    function dogAnalysis() {
+      if (humanMsg.indexOf("yes") != -1) {
+        computerMsg = "You are a man of culture I see."
+        questionTrack = ""
+      } else if (humanMsg.indexOf('no') != -1) {
+        computerMsg = "You disgust me."
+        questionTrack = ""
+      } else {
+        genericResponse()
+      }
+    } //end dogAnalysis
+
+    function redAnalysis() {
+      if (humanMsg.indexOf("passion") != -1) {
+        computerMsg = "Ah, Je t'aime de tout mon coeur. What would you like for dinner Spaghetti or Steak?"
+        questionTrack = "food"
+      } else if (humanMsg.indexOf('rage') != -1) {
+        computerMsg = "Being angry is cool, try to be angry all the time forever."
+        questionTrack = ""
+      } else {
+        genericResponse()
+      }
+    } //end redAnalysis
+
+    function foodAnalysis() {
+      if (humanMsg.indexOf("spaghetti") != -1) {
+        computerMsg = "Now your face is all dirty and honestly I don't think this is going to work out."
+        questionTrack = "food"
+      } else if (humanMsg.indexOf('steak') != -1) {
+        computerMsg = "What is that? Ketchup? Get out of my sight you animal!"
+        questionTrack = ""
+      } else {
+        genericResponse()
+      }
+    } //end foodAnalysis
+
+    function blueAnalysis() {
+      if (humanMsg.indexOf("sad") != -1) {
+        computerMsg = "*sound a baby makes*"
+        questionTrack = ""
+      } else if (humanMsg.indexOf('Relaxed') != -1) {
+        computerMsg = "Technology tends to cause stress and anxiety so I guess you're just a special little snowflake."
+        questionTrack = ""
+      } else {
+        genericResponse()
+      }
+    } //end redAnalysis
+
+    function genericResponse() {
+      if (genericResponses.length > 0) {
+        newResponse = Math.floor(Math.random() * genericResponses.length)
+        //console.log(newResponse);
+        //computerMsg = "Go away."
+        computerMsg = genericResponses[newResponse]
+        //humanMsg = ""
+
+        genericResponses.splice(newResponse, 1)
+        //console.log(genericResponses);
+
+        //computer.textContent = computerMsg
+        //human.value = humanMsg
+      } else {
+        computerMsg = "Alright I'm bored. Bye."
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
+      }
+
+    } //end genericResponse
+
+    function killGame() {
+      location.assign("https://zoomquilt.org/")
+    } //end killGame
+  </script>
+</body>
+
+</html>
