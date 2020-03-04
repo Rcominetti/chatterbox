@@ -150,10 +150,14 @@
     function dogAnalysis() {
       if (humanMsg.indexOf("yes") != -1) {
         computerMsg = "You are a man of culture I see."
-        questionTrack = ""
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
       } else if (humanMsg.indexOf('no') != -1) {
         computerMsg = "You disgust me."
-        questionTrack = ""
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
       } else {
         genericResponse()
       }
@@ -165,7 +169,9 @@
         questionTrack = "food"
       } else if (humanMsg.indexOf('rage') != -1) {
         computerMsg = "Being angry is cool, try to be angry all the time forever."
-        questionTrack = ""
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
       } else {
         genericResponse()
       }
@@ -177,7 +183,9 @@
         questionTrack = "food"
       } else if (humanMsg.indexOf('steak') != -1) {
         computerMsg = "What is that? Ketchup? Get out of my sight you animal!"
-        questionTrack = ""
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
       } else {
         genericResponse()
       }
@@ -186,10 +194,14 @@
     function blueAnalysis() {
       if (humanMsg.indexOf("sad") != -1) {
         computerMsg = "*sound a baby makes*"
-        questionTrack = ""
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
       } else if (humanMsg.indexOf('Relaxed') != -1) {
         computerMsg = "Technology tends to cause stress and anxiety so I guess you're just a special little snowflake."
-        questionTrack = ""
+        button.className = 'displayNone'
+        human.className = 'displayNone'
+        setTimeout(killGame, 2000)
       } else {
         genericResponse()
       }
